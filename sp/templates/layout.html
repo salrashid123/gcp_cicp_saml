@@ -1,0 +1,55 @@
+<!doctype html>
+<html>
+  <head>
+    {% block head %}
+
+
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.green-light_green.min.css" />
+    <script defer src="https://code.getmdl.io/1.3.0/material.min.js"></script>
+
+    <link rel="stylesheet" href="/public/style.css">
+
+    <title>{% block title %}{% endblock %}</title>
+    {% endblock %}
+
+  </head>
+  <body>
+      <div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
+          <header class="mdl-layout__header">
+            <div class="mdl-layout__header-row">
+              <span class="mdl-layout-title">Service Provider Portal</span>
+              <div class="mdl-layout-spacer"></div>
+          </header>
+
+          
+          <div class="mdl-layout__drawer">
+            <span class="mdl-layout-title">Title</span>
+            <nav class="mdl-navigation">
+              <a class="mdl-navigation__link" href="https://cloud.google.com">Google Cloud Platorm</a>
+              <a class="mdl-navigation__link" href="/">Secure Page</a>              
+              <a class="mdl-navigation__link" href="/logout">Logout</a>
+            </nav>
+          </div>
+        
+
+        </div>
+        <br/>
+        <br/>
+        <br/>
+        <div id="content" width="100%">
+            {% block content %}{% endblock %}
+            <br/>
+            <h4>{{ error_string }}</h4>
+          </div>
+
+
+    <footer class="mdl-mini-footer">
+            {% block footer %}
+            Logged in as: <div id='footer_username' name="footer_username">{{ footer_username }}</div>
+            {% endblock %}
+        </li>
+    </footer>
+
+  </body>
+</html>

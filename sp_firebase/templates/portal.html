@@ -1,0 +1,76 @@
+
+{% extends "layout.html" %}
+{% block title %}Partner Portal{% endblock %}
+{% block head %}
+  {{ super() }}
+
+
+  <script>
+    firebase.auth().getRedirectResult()
+      .then((result) => {
+      if (result.credential) {   
+         var token = result.credential.accessToken;
+      }
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+  </script>
+
+  <script type="text/javascript">
+
+    firebase.auth().onAuthStateChanged(function(user) {
+      if (user) {   
+        //console.log(user);
+        email = user.email;
+        document.getElementById("footer_username").innerHTML=email;
+
+
+        console.log(JSON.stringify(user,null, 2));
+        document.getElementById("user_details").innerText=JSON.stringify(user,null, 2);
+                     
+
+        /*
+        firebase.auth().currentUser.getIdToken(true).then(function(idToken) {
+          var xhr = new XMLHttpRequest();
+          xhr.open('POST', '/verifyIdToken');
+          xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+          xhr.send('id_token=' + idToken);
+          xhr.onreadystatechange = function() {
+            if (xhr.readyState == XMLHttpRequest.DONE) {
+              console.log("Id token verified: " + xhr.responseText);
+              email = user.email;
+              document.getElementById("footer_username").innerHTML=email;
+              document.getElementById("username").innerHTML=email;              
+            }
+          }
+        }).catch(function(error) {
+          alert("Unable to get ID token for current sesson: " + error);
+          console.log("Unable to get ID token for current session:");
+        });
+        */
+      } else {
+        console.log("User not logged in");
+      }
+    });
+
+
+    </script>
+
+{% endblock %}
+{% block content %}
+
+<div class="container">
+
+  <h4>Service Provider Portal Page</h4>
+<br/>
+
+<hr/>
+
+
+<pre class="mdl-textfield__input" type="text" rows="30" id="user_details" name="user_details" style="font-size:12px" ></pre> 
+
+
+
+</div>
+{% endblock %}

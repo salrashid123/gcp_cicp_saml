@@ -1,0 +1,26 @@
+
+{% extends "layout.html" %}
+{% block title %}Login form for Service{% endblock %}
+{% block head %}
+  {{ super() }}
+
+  <script type="text/javascript">
+    firebase.auth().signOut().then(function() {
+      logged_in_user = null;
+      console.log("Logout successful");
+    }, function(error) {
+      // An error happened.
+    });
+  </script>
+
+{% endblock %}
+{% block content %}
+
+<div class="container">
+
+<h4>Logout Successful</h4>
+
+<br/>
+
+</div>
+{% endblock %}

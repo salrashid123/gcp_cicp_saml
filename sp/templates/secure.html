@@ -1,0 +1,29 @@
+
+{% extends "layout.html" %}
+{% block title %}Partner Portal{% endblock %}
+{% block head %}
+  {{ super() }}
+
+    <script type="text/javascript">
+
+    </script>
+
+{% endblock %}
+{% block content %}
+
+<div class="container">
+
+  <h3>Service Provider Portal page</h3>
+
+<div class="mdl-textfield mdl-js-textfield">
+    <textarea class="mdl-textfield__input" type="text" rows="25"id="verify_assertion_response" style="font-size:10px" >{{ verify_assertion_response }}</textarea>
+    <label class="mdl-textfield__label" for="decoded_saml">verifyAssertion Response</label>
+</div>
+
+  <br/>
+
+<hr/>
+
+
+</div>
+{% endblock %}

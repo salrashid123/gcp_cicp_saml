@@ -1,0 +1,31 @@
+
+{% extends "layout.html" %}
+{% block title %}Partner Portal{% endblock %}
+{% block head %}
+  {{ super() }}
+{% endblock %}
+{% block content %}
+
+<div class="container">
+
+<h3>Partner Portal</h3>
+
+
+
+<br/>
+
+<div class="mdl-card__actions mdl-card--border">
+  <a class="mdl-button mdl-button--raised mdl-button--colored"  href="/secure">saml</a>  SAML AutoRedirect
+  <div class="mdl-layout-spacer"></div>
+</div>  
+
+<div class="mdl-card__actions mdl-card--border">
+  <a class="mdl-button mdl-button--raised mdl-button--colored"  href="/login">openid</a>   OIDC Login, username/password
+  <div class="mdl-layout-spacer"></div>
+</div>  
+
+
+
+
+</div>
+{% endblock %}

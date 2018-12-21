@@ -1,0 +1,66 @@
+
+{% extends "layout.html" %}
+{% block title %}Partner Portal{% endblock %}
+{% block head %}
+  {{ super() }}
+
+    <script type="text/javascript">
+
+    </script>
+
+{% endblock %}
+{% block content %}
+
+<div class="container">
+
+<br/>
+<br/>
+
+<div>
+<p>
+  Login Successful
+</p>
+<p>
+    <strong>Note:</strong> Users do not see the encoded SAML response.  This page is normally posted immediately <em>body onload=document.forms[0].submit()</em>
+</p>
+</div>
+
+<form action="{{ redirect_location }}" method="post">
+
+  <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+    <input class="mdl-textfield__input" type="text" id="RelayState" name="RelayState" value="{{ relay_state }}">
+    <label class="mdl-textfield__label" for="username">RelayState</label>
+  </div>
+
+  <br/>
+  <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+    <input class="mdl-textfield__input" type="text" id="SAMLResponse" name="SAMLResponse" value="{{ saml_response }}" >
+    <label class="mdl-textfield__label" for="SAMLResponse">SAMLResponse</label>
+  </div>
+  <br/>
+  <br/>
+ <button type="submit" class="mdl-button mdl-js-button mdl-button--raised">Submit</button>
+
+</form>
+
+<p>Decoded SAMLResponse</p>
+
+<div class="mdl-textfield mdl-js-textfield">
+    <textarea class="mdl-textfield__input" type="text" rows="75"id="decoded_saml" style="font-size:12px" >{{ decoded_saml }}</textarea>
+    <label class="mdl-textfield__label" for="decoded_saml">Decoded SAMLResponse</label>
+</div>
+
+</div>
+
+<hr/>
+
+
+<br/>
+
+
+<div id="firebaseui-auth-container"></div>
+
+
+
+</div>
+{% endblock %}
