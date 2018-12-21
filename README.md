@@ -95,7 +95,7 @@ We will setup Google OIDC too just for fun
 
   For me, its:
 
-  ```javascript
+```javascript
       <script src="https://www.gstatic.com/firebasejs/5.7.0/firebase.js"></script>
       <script>
         var config = {
@@ -104,16 +104,16 @@ We will setup Google OIDC too just for fun
         };
         firebase.initializeApp(config);
       </script>
-  ```
+```
   ![images/setup_1.png](images/setup_1.png)
 
 
 * Edit `sp_firebase/secure.html`, add the SAML providerID:  `saml.myidp`
 
-  ```javascript
+```javascript
           const provider = new firebase.auth.SAMLAuthProvider('saml.myidp');
           firebase.auth().signInWithRedirect(provider);
-  ```
+```
 
 
 * Get ProjectID:
@@ -128,7 +128,7 @@ We will setup Google OIDC too just for fun
 Now start the commond IdP:
   Start SAML IDP
 
-    ```bash
+```bash
     cd idp
 
       docker run -t -p 28080:28080 \
@@ -138,13 +138,13 @@ Now start the commond IdP:
         --debug  \
         --cert_file=/app/server.crt \
         --key_file=/app/server.key 
-    ```
+```
 
 ## SP Scenario: FirebaseSDK
 
 First lets start the Firebase SDK based SP:
 
-    ```bash
+```bash
     cd sp_firebase
 
     virtualenv env
@@ -154,7 +154,7 @@ First lets start the Firebase SDK based SP:
 
     python main./py
 
-    ```
+```
 
 ### Test Login
   
@@ -206,7 +206,7 @@ First step is to stop the SP from the previous step (`SP Scenario: FirebaseSDK`)
 
 Then use the `API key`, `projectID` and `saml_providder` for your setup and start the SP:
 
-    ```bash
+```bash
     cd sp/
 
       docker run -t -p 38080:38080 \
@@ -222,7 +222,7 @@ Then use the `API key`, `projectID` and `saml_providder` for your setup and star
         --projectId=226130788915  \
         --sp_domain=https://sp.providerdomain.com:38080 \
         --api_key=AIzaSyCgD_yHPgEoC52gY7KnSqe67e4B6ixo0c8 
-    ```
+```
 
 Ok, you still can't run the full flow yet because we need to modify the `ACS` URL back to our own provider.  By default, the `ACS` is
  - `"callbackUri": "https://cicp-project.firebaseapp.com/__/auth/handler"` 
@@ -254,19 +254,19 @@ To set this up, first setup "Firebase Hosting" and setup a custom domain.  For m
 
       For my domain,
 
-      ```
+```
       $ nslookup sp.esodemoapp2.com
 
       Name:	sp.esodemoapp2.com
       Address: 151.101.65.195
       Name:	sp.esodemoapp2.com
       Address: 151.101.1.195
-      ```
+```
  ![images/fb_custom_domain.png](images/fb_custom_domain.png)
 
 Then edit the javascript in `sp_firebase/layout.html` to add on the auth domain you have
 
-  ```javascript
+```javascript
       <script>    
         var config = {
           apiKey: "AIzaSyCgD_yHPgEoC52gY7KnSqe67e4B6ixo0c8",
@@ -275,7 +275,7 @@ Then edit the javascript in `sp_firebase/layout.html` to add on the auth domain 
         };    
         firebase.initializeApp(config);    
       </script>
-  ```
+```
 
 You also need to update SAML `CallbackURI` manually as described in the appendix to `https://sp.esodemoapp2.com/__/auth/handler`.
 
@@ -298,7 +298,7 @@ At the moment, the UI does not allow you to modify the SAML ACS callback url so 
 
   - To do this, we need to first get the admin service account for your firebase project (one should exist already)
 
-    ```
+```
     PROJECT_NAME=$(gcloud config list --format="value(core.project)")
 
     $ gcloud iam service-accounts list
@@ -306,28 +306,28 @@ At the moment, the UI does not allow you to modify the SAML ACS callback url so 
     App Engine default service account  cicp-project@appspot.gserviceaccount.com
     firebase-adminsdk                   firebase-adminsdk-aujvr@cicp-project.iam.gserviceaccount.com
 
-    ```
+```
 
   - Then get the key and activate it:
 
-    ```
+```
     gcloud iam service-accounts keys  create sp_firebase/svc_account.json --iam-account=firebase-adminsdk-aujvr@cicp-project.iam.gserviceaccount.com
 
     gcloud auth activate-service-account  firebase-adminsdk-aujvr@cicp-project.iam.gserviceaccount.com  --key-file=`pwd`/sp_firebase/svc_account.json
-    ```
+```
 
   - Now get a token and the current config itno a file
 
-    ```
+```
     export TOKEN=$(gcloud auth print-access-token)
 
     curl -s -X GET -H 'Content-Type: application/json' -H "Authorization: Bearer $TOKEN" https://identitytoolkit.googleapis.com/v2beta1/projects/cicp-project/inboundSamlConfigs/saml.myidp > update_config.json
-    ```
+```
 
   - Your file should look something like this:
 
   - `update_config.json`
-      ```json
+```json
       {
         "name": "projects/cicp-project/inboundSamlConfigs/saml.myidp",
         "idpConfig": {
@@ -346,7 +346,7 @@ At the moment, the UI does not allow you to modify the SAML ACS callback url so 
         "displayName": "myIdP",
         "enabled": true
       }
-      ```
+```
 
     - Note the `"callbackUri": "https://cicp-project.firebaseapp.com/__/auth/handler"`  value (`cicp-project` is the one i used, your project will be different).  This is what we need to update
 
