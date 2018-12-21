@@ -140,6 +140,8 @@ Now start the commond IdP:
         --key_file=/app/server.key 
 ```
 
+> You might be wondering why you're running some image called `salrashid123/appssso`...thats just a prebaked image with the python xmlsec libraries build in.  You are free to recreate that image...here is the repo and [Dockerfile](https://github.com/salrashid123/googlapps-sso/blob/master/Dockerfile)
+
 ## SP Scenario: FirebaseSDK
 
 First lets start the Firebase SDK based SP:
