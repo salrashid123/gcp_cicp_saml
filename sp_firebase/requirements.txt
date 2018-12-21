@@ -1,4 +1,4 @@
-Flask==0.12.2
+Flask
 Flask-User
 google-api-python-client
 google-auth-oauthlib
