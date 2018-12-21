@@ -348,18 +348,18 @@ At the moment, the UI does not allow you to modify the SAML ACS callback url so 
       }
 ```
 
-    - Note the `"callbackUri": "https://cicp-project.firebaseapp.com/__/auth/handler"`  value (`cicp-project` is the one i used, your project will be different).  This is what we need to update
+  - Note the `"callbackUri": "https://cicp-project.firebaseapp.com/__/auth/handler"`  value (`cicp-project` is the one i used, your project will be different).  This is what we need to update
 
       - For FirebaseSDK (default): ```"callbackUri": "https://cicp-project.firebaseapp.com/__/auth/handler"```
       - For Non FirebaseSDK: ```"callbackUri": "https://sp.providerdomain.com:38080/acs"```
       - For FirebaseSDK with Custom Domain ```"callbackUri": "https://sp.esodemoapp2.com/__/auth/handler"```
                 (or which ever is your custom domain as shown above)
 
-    - Submit a `PATCH` request to update
+  - Submit a `PATCH` request to update
     
-      ```
+  ```
       curl -i -X PATCH -d @update_config.json  -H 'Content-Type: application/json' -H "Authorization: Bearer $TOKEN" https://identitytoolkit.googleapis.com/v2beta1/projects/cicp-project/inboundSamlConfigs/saml.myidp
-      ```
+  ```
 
 ### OpenSSL Certificate
 
