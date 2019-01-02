@@ -1,4 +1,4 @@
-#  Setting up SAML for Google Cloud Cloud Identity for Customers and Partners (CICP)
+#  Setting up SAML for Google Cloud Identity for Customers and Partners (CICP)
 
 
 ## Introduction
