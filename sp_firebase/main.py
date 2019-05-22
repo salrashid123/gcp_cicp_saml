@@ -73,6 +73,4 @@ def verifyIdTokenRequest():
 if __name__ == '__main__':
 
     context = ('server.crt','server.key')
-    app.run(host='0.0.0.0', port=38080, debug=True,  threaded=True, ssl_context=context)
-
-
+    app.run(host='0.0.0.0', port=38080, threaded=True, ssl_context=context)

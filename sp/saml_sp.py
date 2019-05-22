@@ -33,7 +33,7 @@ class SignatureError(Exception):
 projectId = '226130788915'
 api_key='AIzaSyBP4WHhJRsUNADMXK_JPcptt4KdvBlQ3LE'
 sp_domain = 'https://sp.providerdomain.com:38080'
-saml_provider_id = 'saml.myIdP'   
+saml_provider_id = 'saml.myIdP'
 samlIDs = {}
 saml_issuer = 'authn.py'
 
@@ -78,21 +78,21 @@ def generateRedirect(redirect_path):
         sessionId = json_data['sessionId']
         session['sessionId'] = sessionId
 
-        authURI = json_data['authUri'] 
-      
+        authURI = json_data['authUri']
+
         log("Redirecting to : " + json_data['authUri'])
         return authURI
 
 @app.route('/acs', methods=["POST"])
-def acs(): 
+def acs():
       SAMLResponse = request.form.get('SAMLResponse', None)
       RelayState = request.form.get('RelayState', None)
       print RelayState
       print SAMLResponse
 
       if (SAMLResponse is None or RelayState is None):
-        return render_template('index.html', error_string='Error: RelayState or SAMLResponse not provided to /acs')       
-      else:         
+        return render_template('index.html', error_string='Error: RelayState or SAMLResponse not provided to /acs')
+      else:
         postBody = "RelayState=" + urllib.quote(RelayState, safe='')  + "&SAMLResponse=" + urllib.quote(SAMLResponse, safe='')
         print postBody
         url = 'https://www.googleapis.com/identitytoolkit/v3/relyingparty/verifyAssertion?key=' + api_key
@@ -106,35 +106,35 @@ def acs():
         req = urllib2.Request(url, data, {'Content-Type': 'application/json', 'Content-Length': clen})
 
         response = {}
-        try:        
+        try:
          f = urllib2.urlopen(req)
          response = f.read()
-         f.close()         
+         f.close()
         except urllib2.HTTPError as e:
             error_message = e.read()
             return( error_message )
 
-        json_data = json.loads(response)                                                                                    
+        json_data = json.loads(response)
         formatted_response =  json.dumps(json_data, indent=4, sort_keys=True)
         print formatted_response
         session['verify_assertion_response'] = formatted_response
 
-        user = json_data['federatedId'] 
+        user = json_data['federatedId']
         session['user'] = user
 
         log("*********** LOGGED IN AS: " + user)
         log("**********>> Redirecting back to " + session['relativerequestUri'])
-        return redirect(session['relativerequestUri'], code=302)   
+        return redirect(session['relativerequestUri'], code=302)
         #return render_template('secure.html', footer_username=user)
 
 @app.route('/secure')
-def secure(): 
-    
+def secure():
+
   if 'user' in session:
     return render_template('secure.html', footer_username=session['user'], verify_assertion_response=session['verify_assertion_response'])
   else:
     session['relativerequestUri'] = '/secure'
-    return redirect(generateRedirect('/secure'), code=302)    
+    return redirect(generateRedirect('/secure'), code=302)
 
 def cleanup(doc=None, dsig_ctx=None, res=-1):
     if dsig_ctx is not None:
@@ -142,7 +142,7 @@ def cleanup(doc=None, dsig_ctx=None, res=-1):
     if doc is not None:
         doc.freeDoc()
     return res
-  
+
 def log(msg):
     print ('[%s] %s') % (datetime.datetime.now(), msg)
 
@@ -192,11 +192,11 @@ if __name__ == '__main__':
         if opt == "--projectId":
             projectId = arg
         if opt == "--api_key":
-            api_key = arg                        
+            api_key = arg
         if opt == "--sp_domain":
-            sp_domain = arg  
+            sp_domain = arg
         if opt == "--saml_provider_id":
-            saml_provider_id = arg  
+            saml_provider_id = arg
 
     if not key_file or not cert_file:
         print('No private key specified to use for POST binding.')
@@ -204,6 +204,5 @@ if __name__ == '__main__':
         sys.exit(1)
 
     context = ('server.crt', 'server.key')
-    app.run(host='0.0.0.0', port=38080, debug=True,
+    app.run(host='0.0.0.0', port=38080,
             threaded=True, ssl_context=context)
-

@@ -353,5 +353,5 @@ if __name__ == '__main__':
         sys.exit(1)
 
     context = ('server.crt', 'server.key')
-    app.run(host='0.0.0.0', port=28080, debug=True,
+    app.run(host='0.0.0.0', port=28080, 
             threaded=True, ssl_context=context)
