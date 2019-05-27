@@ -57,7 +57,7 @@ def logout():
 
 def generateRedirect(redirect_path):
         url = 'https://www.googleapis.com/identitytoolkit/v3/relyingparty/createAuthUri?key=' + api_key
-        values = {'identifier' : saml_provider_id,
+        values = {'providerId' : saml_provider_id,
                 'continueUri' : sp_domain + redirect_path,
                 'context' : 'redirected url after signin' }
 
