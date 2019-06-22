@@ -66,7 +66,7 @@ We will setup Google OIDC too just for fun
     * Name:  `myIdP`
     * EntityID: `authn.py`
     * SSO URL: `https://sso.idpdomain.com:28080/login`
-    * Certificate:  copy `sp_saml_cicp/server.crt` conents in (as before, you should generate you eally own keys!)
+    * Certificate:  copy+paste the file contents inside `sp/server.crt` (as before, you should generate you eally own keys!)
     * Service Provider ID: `sp.providerdomain.com`
   
    ![images/saml_config.png](images/saml_config.png)
@@ -154,7 +154,7 @@ First lets start the Firebase SDK based SP:
     pip install -r requirements.txt
 
 
-    python main./py
+    python main.py
 
 ```
 
