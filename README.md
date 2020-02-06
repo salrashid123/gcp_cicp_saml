@@ -66,7 +66,7 @@ We will setup Google OIDC too just for fun
     * Name:  `myIdP`
     * EntityID: `authn.py`
     * SSO URL: `https://sso.idpdomain.com:28080/login`
-    * Certificate:  copy+paste the file contents inside `sp/server.crt` (as before, you should generate you eally own keys!)
+    * Certificate:  copy+paste the file contents inside `idp/server.crt` (as before, you should generate you eally own keys!)
     * Service Provider ID: `sp.providerdomain.com`
   
    ![images/saml_config.png](images/saml_config.png)
