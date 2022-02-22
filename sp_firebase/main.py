@@ -3,6 +3,7 @@ import json
 import uuid
 
 from flask import Flask, render_template, request, Response,  send_from_directory, abort, redirect, jsonify, session
+from flask_wtf.csrf import CSRFProtect
 
 import google_auth_oauthlib.flow
 import google_auth_httplib2
@@ -23,6 +24,7 @@ from firebase_admin import auth
 
 app = Flask(__name__, static_url_path='')
 app.secret_key = 'notasecret'
+csrf = CSRFProtect(app)
 
 
 @app.route('/public/<path:path>')

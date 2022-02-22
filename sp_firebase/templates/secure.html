@@ -18,12 +18,13 @@
                     
 
        document.getElementById("user_details").innerText=JSON.stringify(user,null, 2);
-        
+       var csrf_token = "{{ csrf_token() }}";  
         /*
         firebase.auth().currentUser.getIdToken(true).then(function(idToken) {
           var xhr = new XMLHttpRequest();
           xhr.open('POST', '/verifyIdToken');
           xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+          xhr.setRequestHeader('X-CSRFToken', csrf_token)
           xhr.send('id_token=' + idToken);
           xhr.onreadystatechange = function() {
             if (xhr.readyState == XMLHttpRequest.DONE) {

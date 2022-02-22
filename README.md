@@ -158,6 +158,16 @@ First lets start the Firebase SDK based SP:
 
 ```
 
+### Allow Cookies
+
+TODO: i'm lazy..figure out how to avoid this...
+
+You also need to allow the domain to set/use Cookies
+
+In Firefox:
+
+![images/ff_cookie.png](images/ff_cookie.png)
+
 ### Test Login
   
 Open Incognito window goto:  [https://sp.providerdomain.com:38080/](https://sp.providerdomain.com:38080/)
